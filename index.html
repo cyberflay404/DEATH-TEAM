@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>DEATH TEAM · NIGHTMARE EDITION</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #000000;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Courier New', 'Fira Code', 'JetBrains Mono', monospace;
+            padding: 20px;
+            font-weight: 700;
+        }
+
+        /* custom scroll */
+        ::-webkit-scrollbar {
+            width: 6px;
+            background: #0a0a0a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2a2a2a;
+            border-radius: 0px;
+        }
+
+        .death-container {
+            max-width: 1400px;
+            width: 100%;
+            background-color: #000000;
+            padding: 30px 24px 50px 24px;
+            position: relative;
+            border: 1px solid #181818;
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+        }
+
+        /* ===== HEADER ELEGAN ===== */
+        .header-death {
+            text-align: center;
+            margin-bottom: 55px;
+            position: relative;
+        }
+        .death-title {
+            font-size: 5rem;
+            font-weight: 900;
+            letter-spacing: 14px;
+            color: #ffffff;
+            font-family: 'Courier New', monospace;
+            margin-bottom: 12px;
+            text-shadow: 0 0 5px #1f1f1f;
+            text-transform: uppercase;
+            border-bottom: 2px solid #2c2c2c;
+            display: inline-block;
+            padding: 0 30px 18px 30px;
+            transition: 0.2s;
+        }
+        .death-title:hover {
+            border-bottom-color: #4a4a4a;
+            letter-spacing: 16px;
+        }
+        .admin-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #cccccc;
+            font-family: monospace;
+            letter-spacing: 6px;
+            display: inline-block;
+            padding: 8px 28px;
+            background: #080808;
+            border: 1px solid #2c2c2c;
+            backdrop-filter: blur(2px);
+        }
+
+        /* MUSIC PLAYER - DARK LUXURY */
+        .music-player-section {
+            margin-bottom: 55px;
+            background: #030303;
+            padding: 18px 20px;
+            border: 1px solid #1e1e1e;
+        }
+        .music-label {
+            text-align: center;
+            color: #c0c0c0;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+        .music-input-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            justify-content: center;
+            max-width: 750px;
+            margin: 0 auto;
+        }
+        .url-music-input {
+            flex: 3;
+            min-width: 250px;
+            background-color: #0a0a0a;
+            border: 1px solid #2a2a2a;
+            padding: 14px 18px;
+            font-size: 0.85rem;
+            font-family: monospace;
+            color: #eaeaea;
+            outline: none;
+            font-weight: 700;
+            transition: 0.2s;
+        }
+        .url-music-input:focus {
+            border-color: #5e5e5e;
+            background-color: #101010;
+            box-shadow: 0 0 6px rgba(80,80,80,0.3);
+        }
+        .btn-music {
+            background-color: #0f0f0f;
+            border: 1px solid #323232;
+            color: #f0f0f0;
+            padding: 14px 28px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .btn-music:hover {
+            background-color: #1f1f1f;
+            border-color: #6a6a6a;
+            color: white;
+            transform: translateY(-1px);
+        }
+        .music-status {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.85rem;
+            color: #b0b0b0;
+            font-family: monospace;
+            min-height: 28px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        audio {
+            display: block;
+            width: 100%;
+            max-width: 520px;
+            margin: 18px auto 0;
+            background-color: #080808;
+            filter: grayscale(80%);
+            outline: none;
+            border-radius: 0px;
+        }
+        .custom-controls {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            margin-top: 18px;
+        }
+        .ctrl-btn {
+            background: #0c0c0c;
+            border: 1px solid #333;
+            color: #ddd;
+            padding: 10px 26px;
+            font-weight: 800;
+            font-family: monospace;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: 0.15s;
+            font-size: 0.8rem;
+        }
+        .ctrl-btn:hover {
+            background: #1a1a1a;
+            border-color: #5a5a5a;
+            color: white;
+        }
+
+        /* SECTION TITLE GLOW */
+        .section-title {
+            font-size: 2.4rem;
+            font-weight: 900;
+            color: #f0f0f0;
+            text-align: center;
+            margin: 65px 0 32px 0;
+            letter-spacing: 10px;
+            text-transform: uppercase;
+            border-bottom: 1px solid #252525;
+            padding-bottom: 20px;
+            font-family: 'Courier New', monospace;
+            position: relative;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 2px;
+            background: #4a4a4a;
+        }
+
+        /* PORTOFOLIO GRID - lebih berkelas */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 34px 24px;
+        }
+        .portfolio-card {
+            background: #020202;
+            border: 1px solid #262626;
+            padding: 18px 16px 26px;
+            transition: 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+        .portfolio-card:hover {
+            border-color: #404040;
+            transform: translateY(-4px);
+            background: #070707;
+        }
+        .portfolio-img {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: #0a0a0a;
+            border: 1px solid #2e2e2e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        .portfolio-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.25s;
+        }
+        .portfolio-img img:hover {
+            transform: scale(1.02);
+            opacity: 0.9;
+        }
+        .portfolio-title {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #ffffff;
+            margin-bottom: 10px;
+            border-left: 4px solid #5a5a5a;
+            padding-left: 14px;
+            letter-spacing: 1px;
+        }
+        .portfolio-desc {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #b8b8b8;
+            line-height: 1.5;
+        }
+
+        /* AKTIVITAS TIMELINE premium */
+        .activity-list {
+            max-width: 950px;
+            margin: 0 auto;
+            border-left: 3px solid #2c2c2c;
+            padding-left: 40px;
+        }
+        .activity-item {
+            margin-bottom: 34px;
+            position: relative;
+        }
+        .activity-item::before {
+            content: "◆";
+            position: absolute;
+            left: -51px;
+            top: -2px;
+            color: #7e7e7e;
+            font-size: 1.3rem;
+            font-weight: 900;
+        }
+        .activity-date {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #aaa;
+            letter-spacing: 2.5px;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+        .activity-text {
+            font-size: 1.25rem;
+            font-weight: 900;
+            color: #e2e2e2;
+            line-height: 1.4;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* TEAM GRID - BULAT ELEGAN */
+        .team-wrapper {
+            margin-top: 20px;
+        }
+        .logo-grid-full {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+            gap: 35px 28px;
+        }
+        .logo-slot-item {
+            background: #010101;
+            padding: 18px 10px 22px;
+            border: 1px solid #262626;
+            text-align: center;
+            transition: all 0.2s;
+        }
+        .logo-slot-item:hover {
+            border-color: #3c3c3c;
+            background: #080808;
+        }
+        .preview-area {
+            width: 135px;
+            height: 135px;
+            margin: 0 auto;
+            background-color: #050505;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-radius: 50%;
+            border: 2px solid #2e2e2e;
+            transition: 0.2s;
+        }
+        .preview-area img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        .member-name {
+            margin-top: 16px;
+            font-size: 0.95rem;
+            font-weight: 900;
+            color: #cfcfcf;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-top: 1px dashed #2a2a2a;
+            padding-top: 14px;
+            word-break: break-word;
+        }
+        .placeholder-text {
+            color: #7a7a7a;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+        .info-note {
+            text-align: center;
+            font-size: 0.7rem;
+            margin-top: 45px;
+            color: #3e3e3e;
+            letter-spacing: 2px;
+        }
+
+        /* WORDS FOOTER - area pesan */
+        .words-footer {
+            margin-top: 70px;
+            text-align: center;
+            border-top: 1px solid #202020;
+            padding-top: 40px;
+        }
+        .label-footer {
+            color: #a5a5a5;
+            font-size: 0.85rem;
+            margin-bottom: 16px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            font-weight: 900;
+        }
+        .custom-words-input {
+            background-color: #0a0a0a;
+            border: 1px solid #2b2b2b;
+            padding: 18px 20px;
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto 20px auto;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #ececec;
+            outline: none;
+            resize: vertical;
+            display: block;
+        }
+        .custom-words-input:focus {
+            border-color: #4f4f4f;
+            background-color: #111;
+        }
+        .display-words {
+            font-family: 'Courier New', monospace;
+            font-size: 1.25rem;
+            font-weight: 900;
+            color: #dcdcdc;
+            background: #030303;
+            padding: 22px 18px;
+            min-height: 85px;
+            white-space: pre-wrap;
+            word-break: break-word;
+            max-width: 780px;
+            margin: 0 auto;
+            border-left: 3px solid #2e2e2e;
+            border-right: 3px solid #2e2e2e;
+            line-height: 1.5;
+        }
+        .btn-word {
+            background-color: #0c0c0c;
+            border: 1px solid #303030;
+            color: #e0e0e0;
+            padding: 12px 32px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            font-weight: 900;
+            cursor: pointer;
+            margin: 8px 8px;
+            transition: 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .btn-word:hover {
+            background-color: #1b1b1b;
+            border-color: #5a5a5a;
+            color: white;
+        }
+        [contenteditable="true"]:focus {
+            outline: 1px dashed #6a6a6a;
+            background-color: #0b0b0b;
+        }
+        .footer-note {
+            margin-top: 35px;
+            font-size: 0.7rem;
+            color: #3a3a3a;
+            letter-spacing: 4px;
+            font-weight: 700;
+        }
+
+        /* responsif */
+        @media (max-width: 650px) {
+            .death-title { font-size: 2.5rem; letter-spacing: 6px; }
+            .section-title { font-size: 1.8rem; letter-spacing: 5px; }
+            .activity-text { font-size: 1rem; }
+            .logo-grid-full { gap: 20px; }
+        }
+    </style>
+</head>
+<body>
+<div class="death-container">
+    <!-- HEADER EDITABLE -->
+    <div class="header-death">
+        <div class="death-title" contenteditable="true">DEATH TEAM</div>
+        <div class="admin-name" contenteditable="true">MR 2paccc_z · ADMIN</div>
+    </div>
+
+    <!-- MUSIC PLAYER dengan URL permanen tertanam -->
+    <div class="music-player-section">
+        <div class="music-label" contenteditable="true">◈ AUDIO FREQUENCY ◈</div>
+        <div class="music-input-group">
+            <input type="text" id="songUrlInput" class="url-music-input" 
+                   value="https://h.top4top.io/m_3759itdpl0.mp4" 
+                   placeholder="Direct audio URL">
+            <button id="setMusicBtn" class="btn-music">▶ SET & PLAY</button>
+            <button id="stopMusicBtn" class="btn-music">⏹ STOP</button>
+        </div>
+        <div id="musicStatus" class="music-status" contenteditable="true">⚡ READY · DEATH ANTHEM</div>
+        <audio id="audioPlayer" controls style="display: none;"></audio>
+        <div id="customAudioControl"></div>
+    </div>
+
+    <!-- PORTOFOLIO (EDITABLE) dengan gambar yang diganti sesuai permintaan -->
+    <div class="section-title" contenteditable="true">◉ PORTOFOLIO ◉</div>
+    <div class="portfolio-grid">
+        <div class="portfolio-card">
+            <div class="portfolio-img">
+                <!-- GANTI: ZERO -> URL yang diminta -->
+                <img src="https://k.top4top.io/p_37603t1iy1.jpg" alt="Project Zero">
+            </div>
+            <div class="portfolio-title" contenteditable="true">BABAYO EROR SYSTEM</div>
+            <div class="portfolio-desc" contenteditable="true">DATA BASE SAPABANSOS.JATIM.GO.ID 1,2 MILLIOND
+
+Total Records................1,2 MILLIOND
+The leaked data............. Indonesia
+File type.........................xlsx
+Size...............................760 mb
+Data year....................... 2026
+Price.......................590$
+
+Information data 
+ID PKH+    NIK    Status    No KK    Nama Lansia    Nama Pengurus    Nama Ibu Kandung    Nama Pendamping    Umur    Alamat    Jenis Kelamin    Tanggal Lahir    No Rek Bank Jatim    Kabupaten    Kecamatan    Kelurahan   
+﻿
+Breachforums 
+https://breached.st/threads/data-base-sapabansos-jatim-go-id-1-2-milliond.85902
+
+#BABAYO_EROR_SYSTEM</div>
+        </div>
+        <div class="portfolio-card">
+            <div class="portfolio-img">
+                <!-- GANTI: MAP -> URL yang diminta -->
+                <img src="https://l.top4top.io/p_3760aoqsg2.jpg" alt="Dark Mapper">
+            </div>
+            <div class="portfolio-title" contenteditable="true">// PETRUSNIMS</div>
+            <div class="portfolio-desc" contenteditable="true"> halloo my indonesia, i just leaked data 4M citizen central java and east java, you can check.
+
+uncompressed...............: 1GB +
+Columns........................: 4.000.000
+Breach Date..................: MARCH, 2026
+Format..........................: csv
+Country........................: IndonesiaFile
+Sharing..................: gofile
+Threat: https://darkforums.su/Thread-DATABASE-COMEBACK-leaked-residents-of-East-Java-and-Central-Java-Indonesia</div>
+        </div>
+        <div class="portfolio-card">
+            <div class="portfolio-img">
+                <!-- GANTI: CRYPTO -> URL yang diminta -->
+                <img src="https://j.top4top.io/p_37600za370.jpg" alt="Cipher Vault">
+            </div>
+            <div class="portfolio-title" contenteditable="true">// petrusnims</div>
+            <div class="portfolio-desc" contenteditable="true">Free 4M+ Workers and User Database Ministry Of Health fresh dump
+
+Compressed..................: 140MB
+uncompressed...............: 1,5 GB
+Columns........................: 4.000.000 Row
+Breach Date..................: FEB, 2026
+Format..........................: csv
+Compromised Data........:  tanggal_lahir,tanggal_disetujui,isactive,tempat_lahir,nostr_dto,penandatangan,nama,status_cetak,status_kirim,id_registrasi,provinsi,profesi,profesi_id,nomor_str,nomor_urut_registrasi,nik
+Country........................: Indonesia
+File Sharing..................: gofile
+
+Download: https://gofile.io/d/4gfzE3
+
+Threads: https://darkforums.io/Thread-DATABASE-Free-4M-Workers-and-User-Database-Ministry-Of-Health-fresh-dump?pid=382812#pid382812
+
+User df: https://darkforums.io/User-petrusnism.</div>
+        </div>
+    </div>
+
+    <!-- AKTIVITAS -->
+    <div class="section-title" contenteditable="true">◉ AKTIVITAS ◉</div>
+    <div class="activity-list">
+        <div class="activity-item">
+            <div class="activity-date" contenteditable="true">BABAYO EROR SYSTEM</div>
+            <div class="activity-text" contenteditable="true">Aktivitas Babayo Error System (BES) baru-baru ini dilaporkan terlibat dalam serangkaian serangan siber berskala besar. Kelompok ini, yang sering berkolaborasi dengan kelompok lain seperti Keymous Plus, telah menjadi sorotan karena ancaman keamanan yang mereka timbulkan di tingkat internasional.
+Berdasarkan laporan situasi terbaru hingga awal tahun 2026, berikut adalah rincian aktivitas mereka:
+Target Serangan Skala Besar: Babayo Error System mengumumkan rencana operasi siber besar-besaran yang menargetkan infrastruktur di Israel dan India.
+Kolaborasi Kelompok: Mereka diketahui bekerja sama dengan kelompok peretas lain untuk meningkatkan dampak gangguan pada sistem yang ditargetkan.
+Eskalasi di Timur Tengah: Aktivitas mereka meningkat seiring dengan ketegangan geopolitik di Timur Tengah, di mana kelompok-kelompok ini memanfaatkan situasi konflik untuk meluncurkan kampanye siber. 
+        </div>
+        <div class="activity-item">
+            <div class="activity-date" contenteditable="true">PETRUSNISM</div>
+            <div class="activity-text" contenteditable="true">petrusnism dilaporkan sebagai nama samaran yang muncul dalam forum peretasan terkait insiden kebocoran data di Indonesia pada awal tahun 2026.
+Berikut adalah beberapa detail terkait aktivitas yang dikaitkan dengan nama tersebut:
+1. Dugaan Kasus Kebocoran Data
+Target: Berdasarkan laporan komunitas keamanan siber, akun ini diduga merilis basis data kependudukan milik warga kota Bandung, Indonesia.
+Volume Data: Klaim yang beredar menyebutkan lebih dari 1 juta baris data (catatan individu) telah dieksfiltrasi dan dipublikasikan.
+Isi Data: Informasi pribadi yang diduga bocor mencakup NIK, nama lengkap, alamat, serta detail catatan kependudukan resmi lainnya. 
+Instagram
+Instagram
+2. Platform Aktivitas
+Dark Web Forums: Nama ini muncul di forum-forum gelap seperti DarkForums atau BreachForums, yang memang sering menjadi tempat jual-beli data hasil peretasan instansi atau lembaga di Indonesia.
+Maret 2026: Tanggal insiden ini terdeteksi pada kisaran Maret 2026, yang menunjukkan ini merupakan kejadian yang relatif baru dan masih dalam pantauan otoritas keamanan siber. 
+DarknetSearch
+DarknetSearch
+ +2
+3. Tindakan Pencegahan dan Penanganan
+Jika Anda merasa data pribadi Anda termasuk dalam bagian yang disebarkan oleh pihak ini:
+Verifikasi Kebocoran: Pantau situs pengecekan seperti Have I Been Pwned untuk melihat apakah alamat email atau nomor telepon Anda terkait dengan basis data yang bocor.
+Laporan Resmi: Segera buat laporan ke Patroli Siber atau hubungi Kementerian Komunikasi dan Digital (Kemkomdigi) untuk memberikan informasi tambahan terkait penyalahgunaan data.
+Tindakan Hukum: Penyebaran data pribadi tanpa izin merupakan tindakan pidana yang dapat dijerat sesuai regulasi perlindungan data pribadi di Indonesia. 
+        </div>
+        <div class="activity-item">
+            <div class="activity-date" contenteditable="true">BROTHERHOOD CAPUNG INDONESIA</div>
+            <div class="activity-text" contenteditable="true"> BROTHERHOOD CAPUNG INDONESIA" dalam konteks keamanan siber adalah klaim serangan siber terhadap situs web pemerintah daerah.
+Berdasarkan laporan pemantauan ancaman siber terbaru:
+Target Serangan: Kelompok ini mengklaim telah menargetkan situs web resmi Pemerintah Desa Karangjambu (karangjambu-tegal.desa.id).
+Jenis Aktivitas: Serangan yang dilaporkan berupa peringatan DDoS (Distributed Denial of Service), yaitu upaya untuk melumpuhkan situs web dengan membanjirinya dengan lalu lintas data palsu.
+Waktu Kejadian: Klaim serangan ini terpantau sekitar November 2025. Meskipun ada klaim tersebut, laporan teknis menyebutkan bahwa situs target seringkali tetap aktif atau segera pulih setelahnya. 
+        </div>
+        <div class="activity-item">
+            <div class="activity-date" contenteditable="true">Death team</div>
+            <div class="activity-text" contenteditable="true">Hacked by Death Team" adalah pesan deface (perubahan tampilan situs web) yang sering muncul pada situs-situs yang menjadi korban peretasan oleh kelompok peretas yang menyebut diri mereka sebagai Death Team. 
+Beberapa hal penting mengenai fenomena ini:
+Tujuan Utama: Kelompok ini biasanya melakukan peretasan massal untuk tujuan pamer kemampuan (bragging rights) atau menyebarkan pesan tertentu dengan mengubah halaman depan sebuah situs web.
+Target: Serangan ini sering menyasar situs web yang memiliki celah keamanan pada sistem manajemen konten (CMS) seperti WordPress atau plugin yang tidak diperbarui.
+Identitas: Kelompok ini sering menggunakan nama anggota seperti Mr MaLz,Mr 2paccc_z dalam pesan deface mereka. Nama serupa lainnya yang sering muncul dalam laporan keamanan terkait peretasan di Indonesia adalah Death Note Hackers, yang pernah terlibat dalam peretasan situs pemerintah.
+        </div>
+    </div>
+
+    <!-- TEAM : 10 LOGO + NAMA EDITABLE -->
+    <div class="section-title" contenteditable="true">◉ TEAM ◉</div>
+    <div class="team-wrapper">
+        <div class="logo-grid-full" id="deathLogoGrid"></div>
+        <div class="info-note" contenteditable="true">● 10 DIVISION ●</div>
+    </div>
+
+    <!-- CUSTOM WORDS FOOTER -->
+    <div class="words-footer">
+        <div class="label-footer" contenteditable="true">◈ MANIFEST ◈</div>
+        <textarea id="customWordsInput" class="custom-words-input" placeholder="Tulis pesan, manifesto, atau energi..." rows="2">DEATH TEAM · ETERNAL SHADOW</textarea>
+        <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+            <button id="applyWordsBtn" class="btn-word">⚡ TAMPILKAN</button>
+            <button id="clearWordsBtn" class="btn-word">⌧ RESET</button>
+        </div>
+        <div id="wordsDisplay" class="display-words" contenteditable="true">DEATH TEAM · ETERNAL SHADOW</div>
+        <div class="footer-note">[ FULL BLACK · BOLD LEGACY · EDITABLE ]</div>
+    </div>
+</div>
+
+<script>
+    (function(){
+        // ---------- 10 LOGO PERMANEN (tetap) + NAMA DEFAULT (bisa diedit) ----------
+        const permanentLogos = [
+            "https://l.top4top.io/p_3759kf9f70.jpg",
+            "https://e.top4top.io/p_3759socyh0.jpg",
+            "https://c.top4top.io/p_3759a32mw2.jpg",
+            "https://a.top4top.io/p_37591ip8l2.jpg",
+            "https://d.top4top.io/p_375903ine2.jpg",
+            "https://a.top4top.io/p_3759j2sn11.jpg",
+            "https://k.top4top.io/p_37597xy6t1.jpg",
+            "https://j.top4top.io/p_3757t0uoz0.jpg",
+            "https://l.top4top.io/p_3759eq1za1.jpg",
+            "https://h.top4top.io/p_376170bwh0.jpg"
+        ];
+
+        const defaultNames = [
+            "Mr MaLz", "WICKZZOY", "TEGAL CYBER TEAM", "BABAYO EROR SYSTEM", "PASURUAN SECTEAM",
+            "BROTHERHOOD CAPUNG", "OBSIDIAN Indonesia", "bjorkanyous", "petrusnims", "JAX7"
+        ];
+
+        function renderTeamGrid() {
+            const container = document.getElementById("deathLogoGrid");
+            if (!container) return;
+            container.innerHTML = "";
+            for (let i = 0; i < permanentLogos.length; i++) {
+                const url = permanentLogos[i];
+                const slotCard = document.createElement("div");
+                slotCard.className = "logo-slot-item";
+
+                const previewDiv = document.createElement("div");
+                previewDiv.className = "preview-area";
+
+                if (url && url.trim() !== "") {
+                    const imgElement = document.createElement("img");
+                    imgElement.src = url.trim();
+                    imgElement.alt = `member-${i+1}`;
+                    imgElement.onerror = function() {
+                        this.onerror = null;
+                        previewDiv.innerHTML = "";
+                        const errDiv = document.createElement("div");
+                        errDiv.className = "placeholder-text";
+                        errDiv.innerText = "✘";
+                        errDiv.style.color = "#8b5a5a";
+                        previewDiv.appendChild(errDiv);
+                    };
+                    previewDiv.appendChild(imgElement);
+                } else {
+                    const emptyDiv = document.createElement("div");
+                    emptyDiv.className = "placeholder-text";
+                    emptyDiv.innerText = "◈";
+                    previewDiv.appendChild(emptyDiv);
+                }
+                slotCard.appendChild(previewDiv);
+
+                const nameDiv = document.createElement("div");
+                nameDiv.className = "member-name";
+                nameDiv.setAttribute("contenteditable", "true");
+                nameDiv.textContent = defaultNames[i] || `GHOST ${i+1}`;
+                slotCard.appendChild(nameDiv);
+                container.appendChild(slotCard);
+            }
+        }
+        renderTeamGrid();
+
+        // ========== MUSIC PLAYER dengan URL TERTANAM LANGSUNG ==========
+        const audioElem = document.getElementById('audioPlayer');
+        const songInput = document.getElementById('songUrlInput');
+        const setBtn = document.getElementById('setMusicBtn');
+        const stopBtn = document.getElementById('stopMusicBtn');
+        const musicStatusDiv = document.getElementById('musicStatus');
+        const customControlDiv = document.getElementById('customAudioControl');
+
+        // Default URL sudah terisi di input value, langsung pasang
+        const DEFAULT_AUDIO_URL = "https://h.top4top.io/m_3759itdpl0.mp4";
+
+        // fungsi memuat dan memutar
+        function loadAndPlayMusic(url, autoPlay = true) {
+            if (!url || url.trim() === "") {
+                musicStatusDiv.innerHTML = "⚠️ URL tidak valid! masukkan link audio";
+                musicStatusDiv.style.color = "#d99b9b";
+                if (audioElem.src) {
+                    audioElem.pause();
+                    audioElem.src = "";
+                    if(customControlDiv) customControlDiv.innerHTML = "";
+                }
+                return false;
+            }
+            let cleanUrl = url.trim();
+            audioElem.src = cleanUrl;
+            audioElem.load();
+            audioElem.style.display = "block";
+
+            audioElem.onerror = function() {
+                musicStatusDiv.innerHTML = "❌ GAGAL memuat · cek URL / format";
+                musicStatusDiv.style.color = "#e08b8b";
+                if(customControlDiv) customControlDiv.innerHTML = "";
+            };
+
+            audioElem.oncanplay = function() {
+                musicStatusDiv.innerHTML = "🎧 SIAP · DEATH AUDIO READY";
+                musicStatusDiv.style.color = "#b0ddb0";
+                if (autoPlay) {
+                    audioElem.play().catch(e => {
+                        musicStatusDiv.innerHTML = "⚠️ Autoplay diblokir browser · gunakan PLAY";
+                        musicStatusDiv.style.color = "#e6c27a";
+                    });
+                }
+                // tambah custom control jika belum ada
+                if(customControlDiv && customControlDiv.innerHTML === "") {
+                    customControlDiv.innerHTML = `
+                        <div class="custom-controls">
+                            <button id="ctrlPlayBtn" class="ctrl-btn">▶ PLAY</button>
+                            <button id="ctrlPauseBtn" class="ctrl-btn">⏸ PAUSE</button>
+                        </div>
+                    `;
+                    const playBtn = document.getElementById('ctrlPlayBtn');
+                    const pauseBtn = document.getElementById('ctrlPauseBtn');
+                    if (playBtn) playBtn.onclick = () => audioElem.play();
+                    if (pauseBtn) pauseBtn.onclick = () => audioElem.pause();
+                }
+            };
+
+            audioElem.onplay = () => {
+                musicStatusDiv.innerHTML = "🎶 MUSIC ACTIVE · SHADOW MODE";
+                musicStatusDiv.style.color = "#d4f1d4";
+            };
+            audioElem.onpause = () => {
+                musicStatusDiv.innerHTML = "⏸ PAUSED · SILENCE";
+                musicStatusDiv.style.color = "#bebebe";
+            };
+            audioElem.onended = () => {
+                musicStatusDiv.innerHTML = "■ END OF TRANSMISSION";
+                musicStatusDiv.style.color = "#a0a0a0";
+            };
+            return true;
+        }
+
+        // Event SET
+        setBtn.addEventListener('click', () => {
+            let rawUrl = songInput.value;
+            if (!rawUrl) rawUrl = DEFAULT_AUDIO_URL;
+            loadAndPlayMusic(rawUrl, true);
+        });
+
+        stopBtn.addEventListener('click', () => {
+            audioElem.pause();
+            audioElem.currentTime = 0;
+            musicStatusDiv.innerHTML = "⏹ STOPPED · AUDIO RESET";
+            musicStatusDiv.style.color = "#b0b0b0";
+            if(customControlDiv) customControlDiv.innerHTML = "";
+        });
+
+        // Siapkan audio dengan URL yang sudah tertanam, namun tidak auto-play (kebijakan browser biasanya perlu interaksi)
+        // Tapi kita set agar input berisi default, dan status siap
+        if (songInput) {
+            songInput.value = DEFAULT_AUDIO_URL;
+        }
+        // Preload tapi tanpa autoPlay sampai user klik SET atau PLAY
+        // Agar user bisa langsung klik SET dan lagu langsung dari URL default
+        musicStatusDiv.innerHTML = "⚡ DEFAULT ANTHEM READY · TEKAN ▶ SET & PLAY";
+        
+        // optional: jika ingin langsung bisa tanpa input ulang, cukup klik set
+        // kita juga tambahkan tombol play terpisah? sudah ada set
+
+        // ----- KATA-KATA CUSTOM -----
+        const wordsInput = document.getElementById('customWordsInput');
+        const wordsDisplay = document.getElementById('wordsDisplay');
+        const applyBtn = document.getElementById('applyWordsBtn');
+        const clearBtn = document.getElementById('clearWordsBtn');
+
+        function updateDisplayedWords(text) {
+            if (wordsDisplay) {
+                wordsDisplay.textContent = text || '// KOSONG';
+            }
+        }
+
+        applyBtn.addEventListener('click', () => {
+            updateDisplayedWords(wordsInput.value);
+        });
+
+        clearBtn.addEventListener('click', () => {
+            wordsInput.value = '';
+            updateDisplayedWords('⚫  SILENT  ⚫');
+        });
+
+        if (wordsDisplay && wordsInput) {
+            updateDisplayedWords(wordsInput.value);
+        }
+
+        // Pastikan semua contenteditable tetap bold
+        const styleTag = document.createElement('style');
+        styleTag.textContent = `
+            [contenteditable="true"] { font-weight: 700 !important; caret-color: #aaa; }
+            .logo-slot-item { transition: 0.2s; }
+            .preview-area { background: #030303; }
+            button, input, textarea { font-weight: 700; font-family: monospace; }
+            .music-status { font-weight: 800; }
+        `;
+        document.head.appendChild(styleTag);
+
+        // Bonus: jika user ingin mengubah gambar di portofolio, biarkan editable? tidak merusak desain
+        // Selesai
+    })();
+</script>
+</body>
+</html>
